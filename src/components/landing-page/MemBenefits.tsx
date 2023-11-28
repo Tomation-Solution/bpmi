@@ -26,7 +26,7 @@ const MemBenefits = () => {
         </p>
         <PLink
           text="Learn More"
-          href="membership"
+          href="membership-benefits"
           styles="bg-primary text-white  p-4"
         />
       </div>
