@@ -4,6 +4,9 @@ import Head from "next/head"
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import axios from 'axios';
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const schema = yup.object({
   name:yup.string().required(),
@@ -21,10 +24,38 @@ const BecomeAMember= ()=>{
     resolver: yupResolver(schema),
   });
 
+  const [ isLoading,setIsLoading] = useState(false);
 
-    const onSubmit =(data:FormI)=>{
+
+
+    const onSubmit = async (data:FormI)=>{
       //
-    console.log({data})
+      const form = new FormData();
+
+      form.append('name',data.name)
+      form.append('phone',data.phone)
+      form.append('email',data.email)
+      form.append('highest_qualification',data.highest_qualification)
+      form.append('years_of_pro_expe',data.years_of_pro_expe)
+      form.append('present_job_title',data.present_job_title)
+      
+      for (let i = 0; i < data?.certifications.length; i++){
+        form.append('certifications',data.certifications[i])
+        console.log(data.certifications[i])
+      }
+      try{
+        setIsLoading(true) 
+        console.log({data})
+        const resp = await axios.post('http://localhost:8000/become-a-member/',form)
+        setIsLoading(false) 
+        toast.success('Sent Successfully')
+        console.log("Loggin weel")
+      }
+      catch(err:any){
+        console.log({err})
+        setIsLoading(false) 
+        toast.error('Please check your network because there was a internet error')
+      }
     }
     return(
         <div>
