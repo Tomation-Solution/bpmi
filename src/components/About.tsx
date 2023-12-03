@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 import { PLink, Search, Topic } from ".";
 // @ts-ignore
-import Pub1Image from '../assets/bpmi_pbu_1.PNG'
+import Pub1Image from '../assets/bpmi_pbu_1.png'
 // @ts-ignore
-import Pub2FImg from '../assets/aiinterlige.PNG'
+import Pub2FImg from '../assets/ai_lin.png'
 
 interface AboutProps {
   max?: string;
