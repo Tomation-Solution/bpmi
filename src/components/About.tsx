@@ -2,10 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { PLink, Search, Topic } from ".";
-// @ts-ignore
-import Pub1Image from '../assets/bpmi_pbu_1.png'
-// @ts-ignore
-import Pub2FImg from '../assets/ai_lin.png'
+import Pub1Image from '@/assets/bpmi_pbu_1.png'
+import Pub2FImg from '@/assets/ai_lin.png'
 
 interface AboutProps {
   max?: string;
