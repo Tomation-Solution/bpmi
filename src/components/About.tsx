@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { PLink, Search, Topic } from ".";
-import Pub1Image from '@/assets/bpmi_pbu_1.png'
-import Pub2FImg from '@/assets/ai_lin.png'
+import { PLink, Search, Topic, Pub1Image,Pub2FImg} from ".";
+
 
 interface AboutProps {
   max?: string;
