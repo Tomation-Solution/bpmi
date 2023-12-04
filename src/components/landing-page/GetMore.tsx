@@ -17,7 +17,18 @@ const data = [
     title:'BPM &amp; Data Analytics',
   },
   {
+    date_month:'Aug',
+    date_day:'14',
+    title:'Continuous Professional Development Training Programme',
+  },
+  {
     date_month:'July',
+    date_day:'12',
+    title:'Customer Experience Management',
+  }
+  ,
+  {
+    date_month:'June',
     date_day:'14',
     title:'Continuous Professional Development Training Programme',
   }

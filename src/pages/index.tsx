@@ -60,11 +60,11 @@ export default function Home() {
           <div className={`flex flex-col md:flex-row ${styles.paddingX} `}>
             <MemBenefits />
           </div>
-          <div
+          {/* <div
             className={`flex flex-col md:flex-row ${styles.paddingX} ${styles.paddingY}`}
           >
             <Advocacy />
-          </div>
+          </div> */}
           {/* <div className="relative flex flex-col bg-stone-900 h-[600px] items-center">
             <Image
               src={`/curve1.jpg`}
