@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { PLink, Search, Topic, Pub1Image,Pub2FImg} from ".";
+import { PLink, Search, Topic,} from ".";
 
 
 interface AboutProps {
@@ -12,7 +12,7 @@ export const publicationAndNews = [
     'title':'Business Process & Performance Review version 4',
     'content':[],
     is_dowload:true,
-    img:Pub1Image.src,
+    img:'/ai_lin.png',
     type:'publication',
     id:'1',
     link:'/pub-news/1',
@@ -22,7 +22,7 @@ export const publicationAndNews = [
     'title':'Business Process & Performance Review',
     'content':[],
     is_dowload:true,
-    img:Pub2FImg.src,
+    img:'/bpmi_pbu_1.png',
     type:'publication',
     id:'2',
     link:'/pub-news/2',

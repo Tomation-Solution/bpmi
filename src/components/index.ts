@@ -13,8 +13,7 @@ import Search from "./Search";
 import Topic from "./Topic";
 
 import styles from "./style";
-import Pub1Image from '../assets/bpmi_pbu_1.png'
-import Pub2FImg from '../assets/ai_lin.png'
+
 
 export {
   Footer,
@@ -29,7 +28,5 @@ export {
   Links,
   Search,
   Topic,
-  Pub1Image,
-  Pub2FImg,
-  
+ 
 };
