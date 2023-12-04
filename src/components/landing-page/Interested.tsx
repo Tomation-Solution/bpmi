@@ -25,7 +25,7 @@ const Interested = () => {
 export const Interestedfn = () => {
   return (
     <div
-      className={`bg-[url(/plentysmile.jpg)] bg-no-repeat bg-cover flex justify-center items-center p-4 md:p-10`}
+      className={`bg-[url(/reel.jpg)] bg-no-repeat bg-cover flex justify-center items-center p-4 md:p-10`}
     >
       <div className="text-center text-white  w-fit ">
         <h2 className="font-bold text-[36px] mb-5 md:mb-12">

@@ -5,32 +5,41 @@ import React from "react";
 import Button from "../Button";
 import PLink from "../PLink";
 
-const data = [
+export const eventdata = [
   {
     date_month:'Nov',
     date_day:'08',
     title:'BPM Within Public Sector Based Operations',
+    year:''
   },
   {
     date_month:'Sept',
     date_day:'13',
     title:'BPM &amp; Data Analytics',
+    year:'2024'
+
   },
   {
     date_month:'Aug',
     date_day:'14',
     title:'Continuous Professional Development Training Programme',
+    year:'2024'
+
   },
   {
     date_month:'July',
     date_day:'12',
     title:'Customer Experience Management',
+    year:'2024'
+
   }
   ,
   {
     date_month:'June',
     date_day:'14',
     title:'Continuous Professional Development Training Programme',
+    year:'2024'
+
   }
 ]
 const GetMore = () => {
@@ -64,10 +73,10 @@ const GetMore = () => {
           <div className="mt-20   w-full flex items-center justify-center  absolute">
             <div className=" ml-20">
               <h2 className="text-primary font-bold text-[39px] font-inter ">
-                Join Our Upcoming <br /> Eventss
+                Join Our Upcoming <br /> Events
               </h2>
               <div className="">
-                {data.map((a,index) => (
+                {eventdata.map((a,index) => (
                   <div
                     key={index}
                     className="flex max-w-[500px] border-b border-[#DBDBDB] py-2"
@@ -86,7 +95,7 @@ const GetMore = () => {
               </div>
               <div className="flex w-full justify-center p-16">
                 <PLink
-                  href="services"
+                  href="event"
                   text="View All"
                   styles="bg-primary text-white rounded-full px-4"
                 />

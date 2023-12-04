@@ -20,6 +20,7 @@ const Hero = ({ img, title }: HeroProp) => {
      h-[100%] 
       absolute
       object-cover
+      bg-bottom
       "
         alt=""
         height={500}
@@ -65,7 +66,9 @@ export const Herofn = ({ img, title }: HeroProp) => {
   return (
     <div className="relative flex  items-center justify-center min-h-[400px] md:min-h-[500px] mb-10">
       <Image
-        src={`/${img}.jpg`}
+      
+        // src={`/${img}.jpg`}
+        src={`/gallery (1).jpg`}
         className="w-[100%]  
      h-[100%] 
       absolute
