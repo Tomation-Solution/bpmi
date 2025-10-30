@@ -1,59 +1,68 @@
-import { getMore } from "@/constants/landingPage";
-import Image from "next/image";
 import { CurvedBg } from "@/assets";
-import React from "react";
-import Button from "../Button";
+import { getMore } from "@/constants/landingPage";
+import { eventsApi } from "@/services/api";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import PLink from "../PLink";
 
-export const eventdata = [
-  {
-    date_month:'Nov',
-    date_day:'08',
-    title:'BPM Within Public Sector Based Operations',
-    year:''
-  },
-  {
-    date_month:'Sept',
-    date_day:'13',
-    title:'BPM &amp; Data Analytics',
-    year:'2024'
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+}
 
-  },
-  {
-    date_month:'Aug',
-    date_day:'14',
-    title:'Continuous Professional Development Training Programme',
-    year:'2024'
-
-  },
-  {
-    date_month:'July',
-    date_day:'12',
-    title:'Customer Experience Management',
-    year:'2024'
-
-  }
-  ,
-  {
-    date_month:'June',
-    date_day:'14',
-    title:'Continuous Professional Development Training Programme',
-    year:'2024'
-
-  }
-]
+const formatEventDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  return {
+    date_month: months[date.getMonth()],
+    date_day: date.getDate().toString().padStart(2, "0"),
+    year: date.getFullYear().toString(),
+  };
+};
 const GetMore = () => {
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const data = await eventsApi.getUpcomingEvents();
+        setUpcomingEvents(data);
+      } catch (error) {
+        console.error("Error fetching upcoming events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
-    <div className="flex mt-4 md:mt-24 items-center relative  flex-col xl:flex-row">
+    <div className="flex mt-4 md:mt-24 items-center relative flex-col xl:flex-row">
       <div className="w-full my-40 relative xl:left-[100px]">
-        <h2 className="font-bold text-[30px] md:text-[41px] text-[#00305E]  text-center xl:text-left">
+        <h2 className="font-bold text-[30px] md:text-[41px] text-[#00305E] text-center xl:text-left">
           Get more from The BPMI
         </h2>
         {getMore.map(({ title, text, pic, id }) => (
-          <div className="flex flex-col   md:flex-row my-12" key={id}>
+          <div className="flex flex-col md:flex-row my-12" key={id}>
             <div className="mb-4">
               <h4 className="text-gray text-[14px] font-bold ">{title}</h4>
-              <p className="text-[#6C8AC0] text-[22px] max-w-md mr-16 font-inter ">
+              <p className="text-[#6C8AC0] text-[22px] max-w-md mr-16 font-inter">
                 {text}
               </p>
             </div>
@@ -61,7 +70,9 @@ const GetMore = () => {
           </div>
         ))}
       </div>
-      <div className=" w-full xl:flex flex-col items-end hidden absolute z-10 top-[40px] ">
+
+      {/* Desktop Events Section */}
+      <div className="w-full xl:flex flex-col items-end hidden absolute z-10 top-[40px]">
         <Image
           src={"/div.jpg"}
           alt=""
@@ -69,43 +80,56 @@ const GetMore = () => {
           height={200}
           className="mr-12 md:mr-24 mb-12"
         />
-        <div className=" relative">
-          <div className="mt-20   w-full flex items-center justify-center  absolute">
-            <div className=" ml-20">
-              <h2 className="text-primary font-bold text-[39px] font-inter ">
+        <div className="relative">
+          <div className="mt-20 w-full flex items-center justify-center ">
+            <div className="ml-20">
+              <h2 className="text-primary font-bold text-[39px] font-inter">
                 Join Our Upcoming <br /> Events
               </h2>
               <div className="">
-                {eventdata.map((a,index) => (
-                  <div
-                    key={index}
-                    className="flex max-w-[500px] border-b border-[#DBDBDB] py-2"
-                  >
-                    <div className="font-semibold text-[#00305E] text-[21px] font-inter mr-6">
-                      <p className="text-[12px]  border-b-2 border-[#9ACA3C] pb-1 ">
-                        {a.date_month}
-                      </p>
-                      {a.date_day}
-                    </div>
-                    <p className="font-inter font-normal text-[20px] text-gray ">
-                      {a.title}
-                    </p>
+                {loading ? (
+                  <div className="flex justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
                   </div>
-                ))}
+                ) : (
+                  upcomingEvents.map((event) => {
+                    const { date_month, date_day, year } = formatEventDate(
+                      event.date
+                    );
+                    return (
+                      <div
+                        key={event.id}
+                        className="flex max-w-[500px] border-b border-[#DBDBDB] py-2"
+                      >
+                        <div className="font-semibold text-[#00305E] text-[21px] font-inter mr-6">
+                          <p className="text-[12px] border-b-2 border-[#9ACA3C] pb-1">
+                            {date_month}
+                          </p>
+                          {date_day}
+                        </div>
+                        <p className="font-inter font-normal text-[20px] text-gray line-clamp-2">
+                          {event.title}
+                        </p>
+                      </div>
+                    );
+                  })
+                )}
               </div>
               <div className="flex w-full justify-center p-16">
                 <PLink
-                  href="event"
+                  href="/event"
                   text="View All"
                   styles="bg-primary text-white rounded-full px-4"
                 />
               </div>
             </div>
           </div>
-          <CurvedBg className=" max-w-[700px]" />
+          <CurvedBg className="max-w-[700px]" />
         </div>
       </div>
-      <div className=" w-full flex flex-col items-end xl:hidden   z-10 top-[40px] ">
+
+      {/* Mobile Events Section */}
+      <div className="w-full flex flex-col items-end xl:hidden z-10 top-[40px]">
         <Image
           src={"/div.jpg"}
           alt=""
@@ -113,32 +137,44 @@ const GetMore = () => {
           height={200}
           className="mr-12 md:mr-24 mb-12"
         />
-        <div className=" relative w-full ">
-          <div className="mt-20    flex items-center justify-center  ">
-            <div className=" ">
-              <h2 className="text-primary mb-3 text-center font-bold text-[25px] md:text-[39px] font-inter ">
+        <div className="relative w-full">
+          <div className="mt-20 flex items-center justify-center">
+            <div>
+              <h2 className="text-primary mb-3 text-center font-bold text-[25px] md:text-[39px] font-inter">
                 Join Our Upcoming Events
               </h2>
               <div className="">
-                {[28, 22, 15, 5].map((a) => (
-                  <div key={a} className="flex  border-b border-[#DBDBDB] py-2">
-                    <div className="font-semibold text-[#00305E] text-[21px] font-inter mr-6">
-                      <p className="text-[12px]  border-b-2 border-[#9ACA3C] pb-1 ">
-                        Dec
-                      </p>
-                      {a}
-                    </div>
-                    <p className="font-inter font-normal text-[20px] text-gray ">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Nunc vulputate libero et velit interdum, ac aliquet odio
-                      mattis.
-                    </p>
+                {loading ? (
+                  <div className="flex justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
                   </div>
-                ))}
+                ) : (
+                  upcomingEvents.map((event) => {
+                    const { date_month, date_day, year } = formatEventDate(
+                      event.date
+                    );
+                    return (
+                      <div
+                        key={event.id}
+                        className="flex border-b border-[#DBDBDB] py-2"
+                      >
+                        <div className="font-semibold text-[#00305E] text-[21px] font-inter mr-6">
+                          <p className="text-[12px] border-b-2 border-[#9ACA3C] pb-1">
+                            {date_month}
+                          </p>
+                          {date_day}
+                        </div>
+                        <p className="font-inter font-normal text-[20px] text-gray line-clamp-2">
+                          {event.title}
+                        </p>
+                      </div>
+                    );
+                  })
+                )}
               </div>
               <div className="flex w-full justify-center p-16">
                 <PLink
-                  href="services"
+                  href="/event"
                   text="View All"
                   styles="bg-primary text-white rounded-full px-4"
                 />

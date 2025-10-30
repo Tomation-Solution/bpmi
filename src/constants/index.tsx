@@ -36,9 +36,9 @@ export const navLinks = [
   //   title: "Advocacy",
   // },
   {
-    id: "https://bpmi.rel8membership.com/",
+    id: "https://alumsapp.com/get-started",
     title: "Sign in",
-    new_tab:true
+    new_tab: true,
   },
 ];
 
@@ -91,7 +91,7 @@ export const footer = {
       title: "Fill Job Placement Form",
     },
   ],
-  copyRight: "Copyright © 2023 BPMI. All rights reserved.",
+  copyRight: `Copyright © ${new Date().getFullYear()} BPMI. All rights reserved.`,
 };
 
 export const links = [
